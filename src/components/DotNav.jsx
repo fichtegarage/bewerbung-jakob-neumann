@@ -3,8 +3,8 @@ import "./DotNav.css";
 
 const items = [
   { id: "start", label: "Start" },
-  { id: "hintergrund", label: "Hintergrund" },
   { id: "lebenslauf", label: "Werdegang" },
+  { id: "hintergrund", label: "Hintergrund" },
   { id: "projekte", label: "Projekte" },
   { id: "skills", label: "Skills" },
   { id: "ueber-diese-seite", label: "Über diese Seite" },

@@ -13,8 +13,8 @@ export default function App() {
       <DotNav />
       <main>
         <Hero />
-        <Bridge />
         <Timeline />
+        <Bridge />
         <Projects />
         <Skills />
         <AboutSite />

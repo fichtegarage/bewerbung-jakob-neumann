@@ -28,6 +28,7 @@ const stations = [
 export default function Timeline() {
   const trackRef = useRef(null);
   const drag = useRef({ active: false, startX: 0, startScroll: 0 });
+  const featuredIndex = Math.floor((stations.length - 1) / 2);
 
   const onPointerDown = (e) => {
     drag.current = {
@@ -36,16 +37,19 @@ export default function Timeline() {
       startScroll: trackRef.current.scrollLeft,
     };
     trackRef.current.setPointerCapture(e.pointerId);
+    trackRef.current.classList.add("is-dragging");
   };
 
   const onPointerMove = (e) => {
     if (!drag.current.active) return;
+    e.preventDefault();
     const dx = e.clientX - drag.current.startX;
     trackRef.current.scrollLeft = drag.current.startScroll - dx;
   };
 
   const onPointerUp = () => {
     drag.current.active = false;
+    trackRef.current?.classList.remove("is-dragging");
   };
 
   return (
@@ -62,7 +66,10 @@ export default function Timeline() {
       >
         <div className="timeline__line" />
         {stations.map((s, i) => (
-          <div className="timeline__station" key={i}>
+          <div
+            className={`timeline__station ${i === featuredIndex ? "is-featured" : ""}`}
+            key={i}
+          >
             <span className="timeline__dot" aria-hidden="true" />
             <span className="timeline__period">{s.period}</span>
             <h3 className="timeline__employer">{s.employer}</h3>

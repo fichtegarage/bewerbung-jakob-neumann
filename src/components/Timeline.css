@@ -20,8 +20,9 @@
   padding-right: 2rem;
 }
 
-.timeline__track:active {
+.timeline__track.is-dragging {
   cursor: grabbing;
+  user-select: none;
 }
 
 .timeline__line {
@@ -38,6 +39,25 @@
   scroll-snap-align: start;
   position: relative;
   padding-top: 1.5rem;
+}
+
+.timeline__station.is-featured {
+  flex-basis: 320px;
+}
+
+.timeline__station.is-featured .timeline__dot {
+  width: 14px;
+  height: 14px;
+  top: -6px;
+  box-shadow: 0 0 0 1px var(--messing), 0 0 0 5px var(--messing-blass);
+}
+
+.timeline__station.is-featured .timeline__employer {
+  font-size: 1.375rem;
+}
+
+.timeline__station.is-featured .timeline__bullets {
+  font-size: 1rem;
 }
 
 .timeline__dot {
