@@ -44,21 +44,14 @@
   padding: 0 0.75rem 0.5rem 0;
   background: none;
   border: none;
-  border-radius: 12px;
   font: inherit;
   text-align: left;
   color: inherit;
   cursor: pointer;
-  transition: transform 0.25s ease, background-color 0.25s ease,
-    box-shadow 0.25s ease;
 }
 
-.timeline__station:hover:not(.is-active) {
-  transform: translateY(-2px);
-}
-
-/* Punkt sitzt direkt auf der Linie: Stationsoberkante == Linie (top:3.5rem
-   des Tracks), Punkt selbst um seine halbe Höhe zentriert draufgesetzt. */
+/* Der Punkt bleibt IMMER unverändert exakt auf der Linie -
+   unabhängig vom aktiven Zustand oder irgendeiner Skalierung. */
 .timeline__dot {
   position: absolute;
   top: -4px;
@@ -70,6 +63,38 @@
   border: 3px solid var(--papier);
   box-shadow: 0 0 0 1px var(--messing);
   transition: all 0.25s ease;
+  z-index: 1;
+}
+
+.timeline__station.is-active .timeline__dot {
+  width: 14px;
+  height: 14px;
+  top: -6px;
+  left: 1rem;
+  box-shadow: 0 0 0 1px var(--messing), 0 0 0 6px var(--messing-blass);
+}
+
+/* Das Highlight (Hintergrund, Skalierung) sitzt NUR auf dem
+   Content-Block, der erst unterhalb der Linie beginnt - damit die
+   Linie nie vom Kartenhintergrund übermalt wird. */
+.timeline__content {
+  padding-top: 0.85rem;
+  border-radius: 12px;
+  transition: transform 0.25s ease, background-color 0.25s ease,
+    box-shadow 0.25s ease, padding 0.25s ease;
+}
+
+.timeline__station:hover:not(.is-active) .timeline__content {
+  transform: translateY(-2px);
+}
+
+.timeline__station.is-active .timeline__content {
+  transform: scale(1.08);
+  transform-origin: top center;
+  background: var(--messing-blass);
+  box-shadow: 0 0 0 1px var(--linie);
+  padding: 0.6rem 1.25rem 1.25rem 1rem;
+  margin-left: -1rem;
 }
 
 .timeline__period {
@@ -77,7 +102,6 @@
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--text-sekundaer);
-  margin-top: 0.85rem;
   margin-bottom: 0.35rem;
 }
 
@@ -85,6 +109,11 @@
   font-size: 1.125rem;
   margin: 0 0 0.6rem;
   transition: all 0.25s ease;
+}
+
+.timeline__station.is-active .timeline__employer {
+  color: var(--messing);
+  font-size: 1.25rem;
 }
 
 .timeline__bullets {
@@ -96,32 +125,6 @@
 
 .timeline__bullets li {
   margin-bottom: 0.3rem;
-}
-
-/* Aktive Station: zentriert, deutlich hervorgehoben */
-.timeline__station.is-active {
-  transform: scale(1.08);
-  transform-origin: top center;
-  background: var(--messing-blass);
-  box-shadow: 0 0 0 1px var(--linie);
-  padding: 0.75rem 1.25rem 1.25rem 1rem;
-}
-
-.timeline__station.is-active .timeline__dot {
-  width: 14px;
-  height: 14px;
-  top: -6px;
-  left: 1rem;
-  box-shadow: 0 0 0 1px var(--messing), 0 0 0 6px var(--messing-blass);
-}
-
-.timeline__station.is-active .timeline__period {
-  margin-top: 0.3rem;
-}
-
-.timeline__station.is-active .timeline__employer {
-  color: var(--messing);
-  font-size: 1.25rem;
 }
 
 .timeline__station.is-active .timeline__bullets {
