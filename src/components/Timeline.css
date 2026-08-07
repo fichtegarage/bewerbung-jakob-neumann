@@ -10,7 +10,8 @@
   align-items: flex-start;
   gap: 3.5rem;
   overflow-x: auto;
-  padding: 2.5rem 0 2.5rem;
+  overflow-y: visible;
+  padding: 3.5rem 0 3rem;
   cursor: grab;
   position: relative;
   scroll-snap-type: x proximity;
@@ -25,9 +26,11 @@
   user-select: none;
 }
 
+/* Linie sitzt auf derselben Bezugslinie wie padding-top des Tracks,
+   damit sie exakt durch die Punkte der Stationen läuft. */
 .timeline__line {
   position: absolute;
-  top: 2.5rem;
+  top: 3.5rem;
   left: 0;
   right: 0;
   height: 1px;
@@ -38,8 +41,7 @@
   flex: 0 0 250px;
   scroll-snap-align: center;
   position: relative;
-  padding: 1.5rem 0.75rem 0.5rem 0;
-  margin-top: -1.5rem;
+  padding: 0 0.75rem 0.5rem 0;
   background: none;
   border: none;
   border-radius: 12px;
@@ -55,6 +57,8 @@
   transform: translateY(-2px);
 }
 
+/* Punkt sitzt direkt auf der Linie: Stationsoberkante == Linie (top:3.5rem
+   des Tracks), Punkt selbst um seine halbe Höhe zentriert draufgesetzt. */
 .timeline__dot {
   position: absolute;
   top: -4px;
@@ -73,6 +77,7 @@
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--text-sekundaer);
+  margin-top: 0.85rem;
   margin-bottom: 0.35rem;
 }
 
@@ -98,14 +103,19 @@
   transform: scale(1.08);
   background: var(--messing-blass);
   box-shadow: 0 0 0 1px var(--linie);
-  padding: 1.5rem 1.25rem 1.25rem 1rem;
+  padding: 0.75rem 1.25rem 1.25rem 1rem;
 }
 
 .timeline__station.is-active .timeline__dot {
   width: 14px;
   height: 14px;
   top: -6px;
+  left: 1rem;
   box-shadow: 0 0 0 1px var(--messing), 0 0 0 6px var(--messing-blass);
+}
+
+.timeline__station.is-active .timeline__period {
+  margin-top: 0.3rem;
 }
 
 .timeline__station.is-active .timeline__employer {

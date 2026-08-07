@@ -18,7 +18,7 @@ const stations = [
 export default function Timeline() {
   const trackRef = useRef(null);
   const stationRefs = useRef([]);
-  const drag = useRef({ active: false, startX: 0, startScroll: 0, moved: false });
+  const drag = useRef({ active: false, startX: 0, startScroll: 0, moved: false, pointerId: null });
   const [activeIndex, setActiveIndex] = useState(
     Math.floor((stations.length - 1) / 2)
   );
@@ -51,7 +51,6 @@ export default function Timeline() {
     };
     track.addEventListener("scroll", onScroll, { passive: true });
 
-    // Beim ersten Laden die anfangs aktive (mittlere) Station zentrieren.
     requestAnimationFrame(() => {
       stationRefs.current[activeIndex]?.scrollIntoView({
         inline: "center",
@@ -66,28 +65,45 @@ export default function Timeline() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Pointer-Capture (und damit "Ziehen") wird erst aktiviert, sobald
+  // tatsächlich eine Bewegung stattfindet – ein reiner Klick auf eine
+  // Station bleibt dadurch ein normaler, ungestörter Klick.
   const onPointerDown = (e) => {
     drag.current = {
       active: true,
       startX: e.clientX,
       startScroll: trackRef.current.scrollLeft,
       moved: false,
+      pointerId: e.pointerId,
     };
-    trackRef.current.setPointerCapture(e.pointerId);
-    trackRef.current.classList.add("is-dragging");
   };
 
   const onPointerMove = (e) => {
     if (!drag.current.active) return;
-    e.preventDefault();
     const dx = e.clientX - drag.current.startX;
-    if (Math.abs(dx) > 4) drag.current.moved = true;
-    trackRef.current.scrollLeft = drag.current.startScroll - dx;
+
+    if (!drag.current.moved && Math.abs(dx) > 4) {
+      drag.current.moved = true;
+      trackRef.current.setPointerCapture(drag.current.pointerId);
+      trackRef.current.classList.add("is-dragging");
+    }
+
+    if (drag.current.moved) {
+      e.preventDefault();
+      trackRef.current.scrollLeft = drag.current.startScroll - dx;
+    }
   };
 
-  const onPointerUp = () => {
+  const endDrag = () => {
+    if (drag.current.moved && trackRef.current) {
+      trackRef.current.classList.remove("is-dragging");
+      try {
+        trackRef.current.releasePointerCapture(drag.current.pointerId);
+      } catch {
+        /* pointer was already released */
+      }
+    }
     drag.current.active = false;
-    trackRef.current?.classList.remove("is-dragging");
   };
 
   const goTo = (i) => {
@@ -109,8 +125,8 @@ export default function Timeline() {
         ref={trackRef}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerLeave={onPointerUp}
+        onPointerUp={endDrag}
+        onPointerLeave={endDrag}
       >
         <div className="timeline__line" />
         {stations.map((s, i) => (
