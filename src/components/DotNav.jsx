@@ -20,14 +20,33 @@ export default function DotNav() {
       .map((i) => document.getElementById(i.id))
       .filter(Boolean);
 
+    // Wir merken uns den Sichtbarkeits-Anteil JEDES Abschnitts fortlaufend,
+    // statt nur auf den aktuellen Callback-Batch zu reagieren – sonst kann
+    // bei ungünstigem Timing ein Abschnitt aktiv werden, der zufällig der
+    // einzige im gerade eintreffenden Batch ist, statt der tatsächlich
+    // sichtbarste zu sein.
+    const ratios = new Map(items.map((i) => [i.id, 0]));
+
     observer.current = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveId(visible.target.id);
+        entries.forEach((entry) => {
+          ratios.set(
+            entry.target.id,
+            entry.isIntersecting ? entry.intersectionRatio : 0
+          );
+        });
+
+        let bestId = null;
+        let bestRatio = 0;
+        ratios.forEach((ratio, id) => {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = id;
+          }
+        });
+        if (bestId) setActiveId(bestId);
       },
-      { threshold: 0.4 }
+      { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
     );
 
     sections.forEach((s) => observer.current.observe(s));
