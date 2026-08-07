@@ -16,7 +16,17 @@ const stations = [
   {
     employer: "Arbeitgeber folgt",
     period: "20XX–20XX",
+    bullets: ["Kernaufgabe folgt", "Kernaufgabe folgt"],
+  },
+  {
+    employer: "Arbeitgeber folgt",
+    period: "20XX–20XX",
     bullets: ["Kernaufgabe folgt", "Kernaufgabe folgt", "Kernaufgabe folgt"],
+  },
+  {
+    employer: "Arbeitgeber folgt",
+    period: "20XX–20XX",
+    bullets: ["Kernaufgabe folgt", "Kernaufgabe folgt"],
   },
   {
     employer: "Arbeitgeber folgt",

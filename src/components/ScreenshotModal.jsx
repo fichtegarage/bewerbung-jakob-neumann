@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import "./ScreenshotModal.css";
 
 export default function ScreenshotModal({ src, alt, onClose }) {
@@ -12,7 +13,7 @@ export default function ScreenshotModal({ src, alt, onClose }) {
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       className="modal-overlay"
       role="dialog"
@@ -38,6 +39,7 @@ export default function ScreenshotModal({ src, alt, onClose }) {
         className="modal-image"
         onClick={(e) => e.stopPropagation()}
       />
-    </div>
+    </div>,
+    document.body
   );
 }

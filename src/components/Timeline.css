@@ -16,7 +16,7 @@
   /* full-bleed beyond the centered text column, so the timeline gets room to breathe */
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  padding-left: calc(50vw - var(--breite-text) / 2);
+  padding-left: clamp(1.5rem, calc(50vw - var(--breite-text) / 2), 6rem);
   padding-right: 2rem;
 }
 
