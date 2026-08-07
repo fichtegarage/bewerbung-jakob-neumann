@@ -25,13 +25,14 @@ const projects = [
     screenshotAlt: "Screenshot des Abrechnungswerkzeugs",
   },
   {
-    title: "Eigenständig gesteuerte Werbekampagne",
-    status: "Aktiv gesteuert",
+    title: "Print-Broschüre nach eigenem Markenkonzept",
+    status: "Realisiert",
     description:
-      "Eine selbst konzipierte und laufend gesteuerte Kampagne zur Kundengewinnung, mit einem eigens entwickelten, datensparsamen Modell zur Erfolgsmessung – bewusst statt einer Standardlösung von der Stange.",
-    shows: "strategisches Denken und einen verantwortungsvollen Umgang mit Daten.",
-    screenshotSrc: "/screenshots/google-ads.jpg",
-    screenshotAlt: "Screenshot der Kampagnensteuerung",
+      "Eine Broschüre, komplett nach einem selbst entwickelten Markenkonzept gestaltet und gesetzt – ohne Agentur, ohne Layouter. Einzige externe Beteiligung war die Druckerei für die Produktion.",
+    shows:
+      "die Fähigkeit, ein Vorhaben von der Konzeption bis zum fertigen, professionellen Ergebnis eigenständig durchzuziehen.",
+    screenshotSrc: "/screenshots/broschuere.jpg",
+    screenshotAlt: "Foto der gedruckten Broschüre",
   },
 ];
 
@@ -39,7 +40,7 @@ export default function Projects() {
   const [openImage, setOpenImage] = useState(null);
 
   return (
-    <section className="section reveal">
+    <section id="projekte" className="section reveal">
       <span className="eyebrow">Projekte</span>
       <div className="project-list">
         {projects.map((p) => (

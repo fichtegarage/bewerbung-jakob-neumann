@@ -5,7 +5,7 @@ const HOURS_BUILT = "XX";
 
 export default function AboutSite() {
   return (
-    <section className="section reveal">
+    <section id="ueber-diese-seite" className="section reveal">
       <span className="eyebrow">Über diese Seite</span>
       <StatusDot label={`Built in ${HOURS_BUILT}h`} />
       <p className="about-site__text">

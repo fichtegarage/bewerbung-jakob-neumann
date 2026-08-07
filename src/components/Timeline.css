@@ -1,0 +1,86 @@
+.timeline__hint {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-sekundaer);
+  margin: -0.5rem 0 1.5rem;
+}
+
+.timeline__track {
+  display: flex;
+  gap: 3.5rem;
+  overflow-x: auto;
+  padding: 2.5rem 0.25rem 1rem;
+  cursor: grab;
+  position: relative;
+  scroll-snap-type: x proximity;
+  /* full-bleed beyond the centered text column, so the timeline gets room to breathe */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-left: calc(50vw - var(--breite-text) / 2);
+  padding-right: 2rem;
+}
+
+.timeline__track:active {
+  cursor: grabbing;
+}
+
+.timeline__line {
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--linie);
+}
+
+.timeline__station {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  position: relative;
+  padding-top: 1.5rem;
+}
+
+.timeline__dot {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--messing);
+  border: 3px solid var(--papier);
+  box-shadow: 0 0 0 1px var(--messing);
+}
+
+.timeline__period {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-sekundaer);
+  margin-bottom: 0.35rem;
+}
+
+.timeline__employer {
+  font-size: 1.125rem;
+  margin: 0 0 0.6rem;
+}
+
+.timeline__bullets {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.9375rem;
+  color: var(--text-sekundaer);
+}
+
+.timeline__bullets li {
+  margin-bottom: 0.3rem;
+}
+
+@media (max-width: 640px) {
+  .timeline__track {
+    padding-left: 1.5rem;
+  }
+  .timeline__station {
+    flex-basis: 220px;
+  }
+}
