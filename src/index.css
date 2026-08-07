@@ -1,0 +1,162 @@
+/* ============================================================
+   Jakob Neumann – Bewerbungsseite
+   Design Tokens
+
+   Bewusst abgesetzt von der PT-Marke (Navy/Creme/Oliv):
+   Kohle-Braun auf Nahezu-Weiß mit Messing-Akzent.
+   Ton: ruhiges Dossier, kein Portfolio-Pitch.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  /* Farben */
+  --papier: #faf9f7;
+  --tinte: #24211d;
+  --text-sekundaer: #5c564c;
+  --messing: #8a5a2b;
+  --messing-dunkel: #6e4620;
+  --messing-blass: rgba(138, 90, 43, 0.08);
+  --linie: #e4e0d7;
+
+  /* Schrift */
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+
+  /* Layout */
+  --breite-text: 680px;
+  --abstand-section: 5.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--tinte);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  color: var(--tinte);
+}
+
+p {
+  margin: 0 0 1rem;
+  color: var(--text-sekundaer);
+}
+
+a {
+  color: var(--messing);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--messing-dunkel);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--messing);
+  outline-offset: 3px;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-sekundaer);
+  margin-bottom: 1rem;
+}
+
+.section {
+  max-width: var(--breite-text);
+  margin: 0 auto;
+  padding: var(--abstand-section) 1.5rem;
+}
+
+.section + .section {
+  border-top: 1px solid var(--linie);
+  padding-top: var(--abstand-section);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: reveal 0.6s ease-out both;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-link {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+
+.about-site__text {
+  margin-top: 1rem;
+}
+
+.skills-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.875rem;
+}
+
+.skills-list li {
+  padding-left: 1.25rem;
+  position: relative;
+  color: var(--text-sekundaer);
+}
+
+.skills-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  background: var(--messing);
+  border-radius: 1px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --abstand-section: 3.5rem;
+  }
+  body {
+    font-size: 1rem;
+  }
+}

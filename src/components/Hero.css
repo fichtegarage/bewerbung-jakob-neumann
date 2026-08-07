@@ -1,0 +1,20 @@
+.hero {
+  padding-top: 6rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.25rem, 4vw + 1rem, 3.25rem);
+  letter-spacing: -0.02em;
+}
+
+.hero__sub {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 56ch;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 3rem;
+  }
+}

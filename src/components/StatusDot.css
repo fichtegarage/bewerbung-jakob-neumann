@@ -1,0 +1,32 @@
+.status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-sekundaer);
+}
+
+.status-dot__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--messing);
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .status-dot__pulse {
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--messing-blass);
+  }
+  50% {
+    box-shadow: 0 0 0 5px var(--messing-blass);
+  }
+}
