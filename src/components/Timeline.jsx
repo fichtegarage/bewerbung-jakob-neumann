@@ -26,12 +26,14 @@ export default function Timeline() {
   const updateActiveFromScroll = () => {
     const track = trackRef.current;
     if (!track) return;
-    const trackCenter = track.scrollLeft + track.clientWidth / 2;
+    const trackRect = track.getBoundingClientRect();
+    const trackCenter = trackRect.left + trackRect.width / 2;
     let closest = 0;
     let closestDist = Infinity;
     stationRefs.current.forEach((el, i) => {
       if (!el) return;
-      const elCenter = el.offsetLeft + el.offsetWidth / 2;
+      const r = el.getBoundingClientRect();
+      const elCenter = r.left + r.width / 2;
       const dist = Math.abs(elCenter - trackCenter);
       if (dist < closestDist) {
         closestDist = dist;
@@ -128,27 +130,29 @@ export default function Timeline() {
         onPointerUp={endDrag}
         onPointerLeave={endDrag}
       >
-        <div className="timeline__line" />
-        {stations.map((s, i) => (
-          <button
-            type="button"
-            key={i}
-            ref={(el) => (stationRefs.current[i] = el)}
-            className={`timeline__station ${i === activeIndex ? "is-active" : ""}`}
-            onClick={() => goTo(i)}
-          >
-            <span className="timeline__dot" aria-hidden="true" />
-            <div className="timeline__content">
-              <span className="timeline__period">{s.period}</span>
-              <h3 className="timeline__employer">{s.employer}</h3>
-              <ul className="timeline__bullets">
-                {s.bullets.map((b, j) => (
-                  <li key={j}>{b}</li>
-                ))}
-              </ul>
-            </div>
-          </button>
-        ))}
+        <div className="timeline__rail">
+          <div className="timeline__line" />
+          {stations.map((s, i) => (
+            <button
+              type="button"
+              key={i}
+              ref={(el) => (stationRefs.current[i] = el)}
+              className={`timeline__station ${i === activeIndex ? "is-active" : ""}`}
+              onClick={() => goTo(i)}
+            >
+              <span className="timeline__dot" aria-hidden="true" />
+              <div className="timeline__content">
+                <span className="timeline__period">{s.period}</span>
+                <h3 className="timeline__employer">{s.employer}</h3>
+                <ul className="timeline__bullets">
+                  {s.bullets.map((b, j) => (
+                    <li key={j}>{b}</li>
+                  ))}
+                </ul>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
