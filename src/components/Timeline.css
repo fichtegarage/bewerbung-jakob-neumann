@@ -101,6 +101,7 @@
 /* Aktive Station: zentriert, deutlich hervorgehoben */
 .timeline__station.is-active {
   transform: scale(1.08);
+  transform-origin: top center;
   background: var(--messing-blass);
   box-shadow: 0 0 0 1px var(--linie);
   padding: 0.75rem 1.25rem 1.25rem 1rem;
