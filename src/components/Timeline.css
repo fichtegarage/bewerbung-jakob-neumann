@@ -78,7 +78,7 @@
    Content-Block, der erst unterhalb der Linie beginnt - damit die
    Linie nie vom Kartenhintergrund übermalt wird. */
 .timeline__content {
-  padding-top: 0.85rem;
+  margin-top: 0.85rem;
   border-radius: 12px;
   transition: transform 0.25s ease, background-color 0.25s ease,
     box-shadow 0.25s ease, padding 0.25s ease;
@@ -93,8 +93,9 @@
   transform-origin: top center;
   background: var(--messing-blass);
   box-shadow: 0 0 0 1px var(--linie);
-  padding: 0.6rem 1.25rem 1.25rem 1rem;
+  margin-top: 0.6rem;
   margin-left: -1rem;
+  padding: 0.5rem 1.25rem 1.25rem 1rem;
 }
 
 .timeline__period {
