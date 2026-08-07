@@ -1,13 +1,14 @@
 const skills = [
   "Digitale Lösungen selbst entwickeln",
   "Abläufe analysieren und vereinfachen",
-  "Kampagnen und Kundengewinnung steuern",
+  "Marken- und Kommunikationsmaterial eigenständig produzieren",
   "Vermitteln zwischen unterschiedlichen Interessengruppen",
+  "Menschen motivieren und durch Veränderungsprozesse begleiten",
 ];
 
 export default function Skills() {
   return (
-    <section className="section reveal">
+    <section id="skills" className="section reveal">
       <span className="eyebrow">Skills</span>
       <ul className="skills-list">
         {skills.map((s) => (

@@ -42,8 +42,8 @@ body {
   background: var(--papier);
   color: var(--tinte);
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  font-size: 1.1875rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -82,7 +82,7 @@ a:focus-visible {
 .eyebrow {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;

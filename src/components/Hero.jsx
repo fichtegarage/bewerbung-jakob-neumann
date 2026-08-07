@@ -2,7 +2,7 @@ import "./Hero.css";
 
 export default function Hero() {
   return (
-    <header className="section hero reveal">
+    <header id="start" className="section hero reveal">
       <h1>
         Zwei Kompetenzfelder,
         <br />
