@@ -138,13 +138,15 @@ export default function Timeline() {
             onClick={() => goTo(i)}
           >
             <span className="timeline__dot" aria-hidden="true" />
-            <span className="timeline__period">{s.period}</span>
-            <h3 className="timeline__employer">{s.employer}</h3>
-            <ul className="timeline__bullets">
-              {s.bullets.map((b, j) => (
-                <li key={j}>{b}</li>
-              ))}
-            </ul>
+            <div className="timeline__content">
+              <span className="timeline__period">{s.period}</span>
+              <h3 className="timeline__employer">{s.employer}</h3>
+              <ul className="timeline__bullets">
+                {s.bullets.map((b, j) => (
+                  <li key={j}>{b}</li>
+                ))}
+              </ul>
+            </div>
           </button>
         ))}
       </div>
