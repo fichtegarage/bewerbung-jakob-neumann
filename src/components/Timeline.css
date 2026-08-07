@@ -5,20 +5,14 @@
   margin: -0.5rem 0 1.5rem;
 }
 
+/* Der Track ist NUR noch das scrollbare Sichtfenster. */
 .timeline__track {
-  display: flex;
-  align-items: flex-start;
-  gap: 3.5rem;
   overflow-x: auto;
   overflow-y: visible;
-  padding: 3.5rem 0 3rem;
   cursor: grab;
-  position: relative;
-  scroll-snap-type: x proximity;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  padding-left: max(1.5rem, calc(50vw - 150px));
-  padding-right: max(1.5rem, calc(50vw - 150px));
+  padding: 3.5rem max(1.5rem, calc(50vw - 150px)) 3rem;
 }
 
 .timeline__track.is-dragging {
@@ -26,11 +20,20 @@
   user-select: none;
 }
 
-/* Linie sitzt auf derselben Bezugslinie wie padding-top des Tracks,
-   damit sie exakt durch die Punkte der Stationen läuft. */
+/* Der Rail ist so breit wie sein tatsächlicher Inhalt (nicht wie das
+   Sichtfenster) - erst dadurch kann die Linie (left:0; right:0) die
+   volle Inhaltsbreite abdecken statt nur einen Bildschirm-Ausschnitt. */
+.timeline__rail {
+  display: flex;
+  align-items: flex-start;
+  gap: 3.5rem;
+  position: relative;
+  width: max-content;
+}
+
 .timeline__line {
   position: absolute;
-  top: 3.5rem;
+  top: 0;
   left: 0;
   right: 0;
   height: 1px;
@@ -75,13 +78,14 @@
 }
 
 /* Das Highlight (Hintergrund, Skalierung) sitzt NUR auf dem
-   Content-Block, der erst unterhalb der Linie beginnt - damit die
-   Linie nie vom Kartenhintergrund übermalt wird. */
+   Content-Block. margin-top (nicht padding!) lässt den Bereich über
+   ihm wirklich frei, damit die Linie nie vom Kartenhintergrund
+   übermalt wird - Padding wird vom Hintergrund immer mit ausgefüllt. */
 .timeline__content {
   margin-top: 0.85rem;
   border-radius: 12px;
   transition: transform 0.25s ease, background-color 0.25s ease,
-    box-shadow 0.25s ease, padding 0.25s ease;
+    box-shadow 0.25s ease, padding 0.25s ease, margin 0.25s ease;
 }
 
 .timeline__station:hover:not(.is-active) .timeline__content {
