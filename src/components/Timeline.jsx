@@ -75,6 +75,17 @@ export default function Timeline() {
     measureLine();
     centerStation(activeIndex, "auto");
 
+    // Google Fonts laden asynchron nach. Falls die erste Messung vor
+    // dem Schriftwechsel läuft, basiert sie auf der (schmaleren)
+    // Ersatzschrift und wird dadurch zu knapp - das erklärt, warum es
+    // "mal so, mal so" aussah. Nach document.fonts.ready nochmal
+    // messen behebt das zuverlässig.
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(measureLine);
+    }
+    // Zusätzliches Sicherheitsnetz für jeden anderen späten Layout-Shift.
+    const safetyTimeout = setTimeout(measureLine, 500);
+
     let raf;
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -89,6 +100,7 @@ export default function Timeline() {
       track.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(raf);
+      clearTimeout(safetyTimeout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
