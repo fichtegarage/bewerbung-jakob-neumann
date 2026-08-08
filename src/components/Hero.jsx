@@ -4,15 +4,16 @@ export default function Hero() {
   return (
     <header id="start" className="section hero reveal">
       <h1>
-        Zwei Kompetenzfelder,
+        Das Ergebnis zählt,
         <br />
-        eine Person.
+        nicht der Weg.
       </h1>
       <p className="hero__sub">
-        Erfahrung im Umgang mit Menschen, Institutionen und komplexen
-        Abstimmungsprozessen – und die Fähigkeit, digitale Lösungen selbst zu
-        bauen, wenn es sie noch nicht gibt. Diese Seite zeigt drei Beispiele
-        dafür.
+        Ich arbeite mit Menschen genauso wie mit Technologie – eine
+        Kombination, die gerade entscheidend wird. KI ersetzt keine
+        Mitarbeitenden, sie verändert, wie wir arbeiten: Richtig eingesetzt
+        übernimmt sie repetitive Aufgaben und schafft Raum für das, was
+        Menschen wirklich gut können.
       </p>
     </header>
   );

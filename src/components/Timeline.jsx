@@ -2,17 +2,44 @@ import { useEffect, useRef, useState } from "react";
 import "./Timeline.css";
 
 /**
- * PLATZHALTER-DATEN. Die echten Stationen (Arbeitgeber, Zeiträume,
- * Kernaufgaben) fehlen noch. Struktur und Interaktion (horizontales
- * Gleiten, Klick zum Zentrieren/Hervorheben) sind final, nur der
- * Inhalt ist Demo-Material.
+ * Werdegang, chronologisch. Die aktuelle Station (DB InfraGO) ist
+ * bewusst zuletzt und wird beim Laden standardmäßig zentriert/hervorgehoben.
  */
 const stations = [
-  { employer: "Arbeitgeber folgt", period: "20XX–20XX", bullets: ["Kernaufgabe folgt", "Kernaufgabe folgt"] },
-  { employer: "Arbeitgeber folgt", period: "20XX–20XX", bullets: ["Kernaufgabe folgt", "Kernaufgabe folgt"] },
-  { employer: "Arbeitgeber folgt", period: "20XX–20XX", bullets: ["Kernaufgabe folgt", "Kernaufgabe folgt", "Kernaufgabe folgt"] },
-  { employer: "Arbeitgeber folgt", period: "20XX–20XX", bullets: ["Kernaufgabe folgt", "Kernaufgabe folgt"] },
-  { employer: "Arbeitgeber folgt", period: "20XX–heute", bullets: ["Kernaufgabe folgt", "Kernaufgabe folgt"] },
+  {
+    role: "Praktikant Unternehmenskommunikation",
+    employer: "EDEKA Zentrale AG & Co. KG, Hamburg",
+    period: "02/2016–08/2016",
+    bullets: ["Presse- und Öffentlichkeitsarbeit", "Pressemitteilungen verfasst", "Blogger-Relations betreut"],
+  },
+  {
+    role: "Praktikant Pressestelle",
+    employer: "Deutsche Post / DHL Group, Berlin",
+    period: "04/2017–08/2017",
+    bullets: ["Presse- und Öffentlichkeitsarbeit", "Presseverteiler aufgebaut", "Presseanfragen koordiniert"],
+  },
+  {
+    role: "Praktikant interne Kommunikation",
+    employer: "MAN Energy Solutions, Augsburg",
+    period: "03/2019–05/2019",
+    bullets: ["Konzernweites Intranet betreut", "Mitarbeiterzeitung redigiert", "Interne Veranstaltungen organisiert"],
+  },
+  {
+    role: "Volontär Redaktion und Öffentlichkeitsarbeit",
+    employer: "Deutscher Alpenverein (DAV) e.V., München",
+    period: "10/2019–09/2021",
+    bullets: ["Redaktion DAV Panorama und alpenverein.de", "Presse- und Öffentlichkeitsarbeit", "Social-Media-Management"],
+  },
+  {
+    role: "Fachexperte Multimedia, Stakeholdermanagement",
+    employer: "DB InfraGO AG",
+    period: "seit 2021",
+    bullets: [
+      "Video- und Audioproduktion, u. a. als Podcast-Produzent sowie Videograf und Editor",
+      "Stakeholdermanagement bei komplexen Infrastrukturprojekten",
+      "Vermittlung zwischen Kommunalpolitik, Bürgerinitiativen und Projektorganisation",
+    ],
+  },
 ];
 
 export default function Timeline() {
@@ -21,9 +48,7 @@ export default function Timeline() {
   const lineRef = useRef(null);
   const stationRefs = useRef([]);
   const drag = useRef({ active: false, startX: 0, startScroll: 0, moved: false, pointerId: null });
-  const [activeIndex, setActiveIndex] = useState(
-    Math.floor((stations.length - 1) / 2)
-  );
+  const [activeIndex, setActiveIndex] = useState(stations.length - 1);
 
   // Breite der Linie wird direkt gemessen (letzte Station), statt sie
   // über CSS-Schlüsselwörter wie max-content berechnen zu lassen -
@@ -174,7 +199,8 @@ export default function Timeline() {
               <span className="timeline__dot" aria-hidden="true" />
               <div className="timeline__content">
                 <span className="timeline__period">{s.period}</span>
-                <h3 className="timeline__employer">{s.employer}</h3>
+                <h3 className="timeline__employer">{s.role}</h3>
+                <p className="timeline__company">{s.employer}</p>
                 <ul className="timeline__bullets">
                   {s.bullets.map((b, j) => (
                     <li key={j}>{b}</li>

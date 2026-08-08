@@ -1,5 +1,6 @@
 const skills = [
   "Digitale Lösungen selbst entwickeln",
+  "Video- und Audioproduktion",
   "Abläufe analysieren und vereinfachen",
   "Marken- und Kommunikationsmaterial eigenständig produzieren",
   "Vermitteln zwischen unterschiedlichen Interessengruppen",

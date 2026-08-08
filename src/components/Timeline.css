@@ -44,7 +44,7 @@
 }
 
 .timeline__station {
-  flex: 0 0 250px;
+  flex: 0 0 280px;
   scroll-snap-align: center;
   position: relative;
   padding: 0 0.75rem 0.5rem 0;
@@ -115,8 +115,15 @@
 
 .timeline__employer {
   font-size: 1.125rem;
-  margin: 0 0 0.6rem;
+  line-height: 1.25;
+  margin: 0 0 0.3rem;
   transition: all 0.25s ease;
+}
+
+.timeline__company {
+  font-size: 0.8125rem;
+  color: var(--text-sekundaer);
+  margin: 0 0 0.7rem;
 }
 
 .timeline__station.is-active .timeline__employer {
@@ -145,6 +152,6 @@
     padding-right: 1.5rem;
   }
   .timeline__station {
-    flex-basis: 210px;
+    flex-basis: 240px;
   }
 }

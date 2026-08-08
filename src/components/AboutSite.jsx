@@ -1,7 +1,7 @@
 import StatusDot from "./StatusDot.jsx";
 
 // TODO: [XX] durch die reale Stundenzahl ersetzen, kurz vor Go-Live.
-const HOURS_BUILT = "XX";
+const HOURS_BUILT = "4";
 
 export default function AboutSite() {
   return (
