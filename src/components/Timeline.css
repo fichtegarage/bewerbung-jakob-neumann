@@ -13,6 +13,7 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   padding: 3.5rem max(1.5rem, calc(50vw - 150px)) 3rem;
+  scroll-snap-type: x proximity;
 }
 
 .timeline__track.is-dragging {
@@ -20,18 +21,26 @@
   user-select: none;
 }
 
-/* Der Rail ist so breit wie sein tatsächlicher Inhalt (nicht wie das
-   Sichtfenster). Die Linie ist bewusst eine border-top statt eines
-   separat positionierten Elements: eine Border ist IMMER exakt so
-   breit wie ihr Element, unabhängig von Positionsberechnungen, die
-   zwischen Browser-Engines unterschiedlich ausfallen können. */
+/* max-content ist hier nötig: ohne explizite Breite wird der rechte
+   Innenabstand des Tracks nicht zuverlässig in die scrollbare Breite
+   eingerechnet, wodurch Zentrieren am Rand hängen bleibt. */
 .timeline__rail {
   display: flex;
   align-items: flex-start;
   gap: 3.5rem;
   position: relative;
   width: max-content;
-  border-top: 1px solid var(--linie);
+}
+
+/* Breite wird per JavaScript gesetzt (siehe Timeline.jsx, measureLine) -
+   robuster als CSS-Schlüsselwörter wie max-content, die zwischen
+   Browser-Engines nicht immer gleich berechnet werden. */
+.timeline__line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1px;
+  background: var(--linie);
 }
 
 .timeline__station {

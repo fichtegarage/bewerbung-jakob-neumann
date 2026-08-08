@@ -17,11 +17,36 @@ const stations = [
 
 export default function Timeline() {
   const trackRef = useRef(null);
+  const railRef = useRef(null);
+  const lineRef = useRef(null);
   const stationRefs = useRef([]);
   const drag = useRef({ active: false, startX: 0, startScroll: 0, moved: false, pointerId: null });
   const [activeIndex, setActiveIndex] = useState(
     Math.floor((stations.length - 1) / 2)
   );
+
+  // Breite der Linie wird direkt gemessen (letzte Station), statt sie
+  // über CSS-Schlüsselwörter wie max-content berechnen zu lassen -
+  // das ist zwischen Browser-Engines nicht immer einheitlich.
+  const measureLine = () => {
+    const last = stationRefs.current[stations.length - 1];
+    if (!last || !lineRef.current) return;
+    const width = last.offsetLeft + last.offsetWidth;
+    lineRef.current.style.width = `${width}px`;
+  };
+
+  // Zentriert eine Station manuell über scrollLeft-Berechnung statt
+  // über scrollIntoView - dessen inline:'center'-Option wird nicht in
+  // jedem Browser identisch unterstützt.
+  const centerStation = (i, behavior) => {
+    const track = trackRef.current;
+    const el = stationRefs.current[i];
+    if (!track || !el) return;
+    const elRect = el.getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
+    const delta = elRect.left + elRect.width / 2 - (trackRect.left + trackRect.width / 2);
+    track.scrollTo({ left: track.scrollLeft + delta, behavior });
+  };
 
   const updateActiveFromScroll = () => {
     const track = trackRef.current;
@@ -46,6 +71,10 @@ export default function Timeline() {
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
+
+    measureLine();
+    centerStation(activeIndex, "auto");
+
     let raf;
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -53,23 +82,17 @@ export default function Timeline() {
     };
     track.addEventListener("scroll", onScroll, { passive: true });
 
-    requestAnimationFrame(() => {
-      stationRefs.current[activeIndex]?.scrollIntoView({
-        inline: "center",
-        block: "nearest",
-      });
-    });
+    const onResize = () => measureLine();
+    window.addEventListener("resize", onResize);
 
     return () => {
       track.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       cancelAnimationFrame(raf);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Pointer-Capture (und damit "Ziehen") wird erst aktiviert, sobald
-  // tatsächlich eine Bewegung stattfindet – ein reiner Klick auf eine
-  // Station bleibt dadurch ein normaler, ungestörter Klick.
   const onPointerDown = (e) => {
     drag.current = {
       active: true,
@@ -111,11 +134,7 @@ export default function Timeline() {
   const goTo = (i) => {
     if (drag.current.moved) return; // Klick direkt nach einer Ziehgeste ignorieren
     setActiveIndex(i);
-    stationRefs.current[i]?.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest",
-    });
+    centerStation(i, "smooth");
   };
 
   return (
@@ -130,7 +149,8 @@ export default function Timeline() {
         onPointerUp={endDrag}
         onPointerLeave={endDrag}
       >
-        <div className="timeline__rail">
+        <div className="timeline__rail" ref={railRef}>
+          <div className="timeline__line" ref={lineRef} />
           {stations.map((s, i) => (
             <button
               type="button"
