@@ -22,6 +22,16 @@ export default function Bridge() {
         irgendwie, sondern besser zu lösen. Die folgenden Beispiele zeigen,
         was daraus entsteht.
       </p>
+      <p>
+      Konkret sichtbar wird das in meinem Nebengewerbe als Personal Trainer 
+      und Cycling Instructor. Dort trage ich selbst die Verantwortung für 
+      Buchung, Verträge und Abrechnung – und genau dort sind die Probleme 
+      entstanden, die ich in den folgenden Projekten gelöst habe: nicht als
+      Auftrag, sondern weil ich den Bedarf selbst kannte. Gleichzeitig ist 
+      es der Ort, an dem ich täglich übe, Menschen zu motivieren und durch 
+      einen Prozess zu begleiten, bis ein Ziel erreicht ist.
+      </p>
+
     </section>
   );
 }
