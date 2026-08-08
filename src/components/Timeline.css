@@ -21,23 +21,17 @@
 }
 
 /* Der Rail ist so breit wie sein tatsächlicher Inhalt (nicht wie das
-   Sichtfenster) - erst dadurch kann die Linie (left:0; right:0) die
-   volle Inhaltsbreite abdecken statt nur einen Bildschirm-Ausschnitt. */
+   Sichtfenster). Die Linie ist bewusst eine border-top statt eines
+   separat positionierten Elements: eine Border ist IMMER exakt so
+   breit wie ihr Element, unabhängig von Positionsberechnungen, die
+   zwischen Browser-Engines unterschiedlich ausfallen können. */
 .timeline__rail {
   display: flex;
   align-items: flex-start;
   gap: 3.5rem;
   position: relative;
   width: max-content;
-}
-
-.timeline__line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--linie);
+  border-top: 1px solid var(--linie);
 }
 
 .timeline__station {

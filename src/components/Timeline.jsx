@@ -131,7 +131,6 @@ export default function Timeline() {
         onPointerLeave={endDrag}
       >
         <div className="timeline__rail">
-          <div className="timeline__line" />
           {stations.map((s, i) => (
             <button
               type="button"
