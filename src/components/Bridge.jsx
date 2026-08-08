@@ -31,7 +31,6 @@ export default function Bridge() {
         irgendwie, sondern besser zu lösen. Die folgenden Beispiele zeigen,
         was daraus entsteht.
       </p>
-
     </section>
   );
 }
